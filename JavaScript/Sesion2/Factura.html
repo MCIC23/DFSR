@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        .text-right{
+            text-align: right;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.slim.js" integrity="sha256-tXm+sa1uzsbFnbXt8GJqsgi2Tw+m4BLGDof6eUPjbtk=" crossorigin="anonymous"></script>
+
+
+</head>
+<body  margin:10 >
+    <script src="Factura1.js">    
+    </script>
+   <h1 style="margin: 10px">Facturación</h1>
+   <button id="mostrar"style="margin: 10px" > Datos del Cliente</button>
+   <div class="container">
+   <form class="formulario">
+    <div class="form-group">
+      <label for="formGroupExampleInput">Clave de Cliente:</label>
+      <input type="text" class="form-control"  id="claveCliente" >
+    </div>
+    <div class="form-group" >
+      <label for="formGroupExampleInput2">Nombre:</label>
+      <input type="text" class="form-control"  id="nombreC">
+    </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput">RFC:</label>
+        <input type="text" class="form-control"  id="rfc">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Domicilio:</label>
+        <input type="text" class="form-control" id="domicilio">
+      </div>
+  </form>
+  </div>
+  <p></p>
+  <div style="text-align: right;width:400px">
+  <button id="importar">Importar Clientes</button>
+  </div>
+
+ <!-- Modal 2 -->
+ <div class="modal" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalti">Catalogo de Clientes</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr class="detalle2">
+              <th scope="col">#</th>
+              <th scope="col">Clave Ciente</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">RFC</th>
+              <th scope="col">Domicilio</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <tr class="detalle2">
+              <th scope="row">1</th>
+              <td class="claveCliente" id="claveCliente">C-29345</td>
+              <td class="nombreC" id="nombreC">Daniel Olvera Cruz</td>
+              <td class="rfc" id="rfc">COD98938303N23</td>
+              <td class="domicilio" id="domicilio">Calle Girasol num 21, Colonia Estrella</td>
+            </tr>
+            <tr class="detalle2">
+              <th scope="row">2</th>
+              <td class="claveCliente" id="claveCliente">C-12934</td>
+              <td class="nombreC" id="nombreC">Mario Ruiz Salas</td>
+              <td class="rfc" id="rfc">RMS9038389G3</td>
+              <td class="domicilio" id="domicilio">Calle Nacional numero 12, Colonia Balbuena</td>
+            </tr>
+              <tr class="detalle2">
+                <th scope="row">3</th>
+                <td class="claveCliente" id="claveCliente">C-34682</td>
+                <td class="nombreC" id="nombreC">Marisol Ayala Flores</td>
+                <td class="rfc" id="rfc">AMFS9038389RT3</td>
+                <td class="domicilio" id="domicilio">Calle Diagonal numero 45, Colonia Noche Vieja</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+<div class="container"> 
+  <p></p>
+  <button id="agregar" >Agregar partida</button>
+  <p></p>
+  <table>
+    <thead >
+      <th></th>
+      <th>Clave</th>
+      <th>Precio</th>
+      <th>Descripcion</th>
+      <th>Unidades</th>
+      <th>Importe</th>
+     </thead>
+     <tbody id="partidas">
+     </tbody>
+      <tfoot class="totales" >
+      <tr id="filaSubtotal">
+       <td class="text-right">Subtotal: $</td>
+       <td class="text-right" id='subtotal'>0.0</td>
+       </tr>
+       <tr id="filaIva">
+       <td class="text-right">Iva: $</td>
+       <td class="text-right" id='iva'>0.0</td>
+      </tr>
+       <tr id="filaTotal">
+       <td class="text-right">Total: $</td>
+       <td class="text-right" id='total'>0.0</td>
+    </tr>
+  </tfoot>
+  </table>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Catalogo de articulos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr class="detalle">
+                <th scope="col">#</th>
+                <th scope="col">Clave</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="detalle">
+                <th scope="row">1</th>
+                <td class="claveDetalle">M-23245</td>
+                <td class="descripcionDetalle">Playera Real Madrid</td>
+                <td class="precioDetalle">$1000.00</td>
+              </tr>
+              <tr class="detalle">
+                <th scope="row">2</th>
+                <td class="claveDetalle">M-24678</td>
+                <td class="descripcionDetalle">Playera Arsenal</td>
+                <td class="precioDetalle">$800.00</td>
+              </tr>
+              <tr class="detalle">
+                <th scope="row">3</th>
+                <td class="claveDetalle">M-43890</td>
+                <td class="descripcionDetalle">Playera Liverpool</td>
+                <td class="precioDetalle">$900.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>   
+</div> 
+</div>
+
+<!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Catalogo de articulos</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table">
+            <thead>
+              <tr class="detalle">
+                <th scope="col">#</th>
+                <th scope="col">Clave</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Precio</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr class="detalle">
+                <th scope="row">1</th>
+                <td class="claveDetalle">M-23245</td>
+                <td class="descripcionDetalle">Playera Real Madrid</td>
+                <td class="precioDetalle">$1000.00</td>
+              </tr>
+              <tr class="detalle">
+                <th scope="row">2</th>
+                <td class="claveDetalle">M-24678</td>
+                <td class="descripcionDetalle">Playera Arsenal</td>
+                <td class="precioDetalle">$800.00</td>
+              </tr>
+              <tr class="detalle">
+                <th scope="row">3</th>
+                <td class="claveDetalle">M-43890</td>
+                <td class="descripcionDetalle">Playera Liverpool</td>
+                <td class="precioDetalle">$900.00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>   
+</div> 
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imprimir2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Factura</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+    <table>
+    <thead >
+   </thead>
+     <tbody id="imprimir3">
+     </tbody>
+      <tfoot  >
+      <tr id="nombre1">
+       <td class="text-left" id='nombre2'></td>
+       </tr>
+       <tr id="rfc1">
+       <td class="text-left" id='rfc2'></td>
+      </tr>
+       <tr id="domicilio1">
+       <td class="text-left" id='domicilio2'></td>
+      </tr>
+      <tr>
+        <td class="text-right">Subtotal: </td>
+        <td class="text-right" id='subtotal2'></td>
+        </tr>
+      <tr>
+        <td class="text-right">Iva: </td>
+        <td class="text-right" id='iva2'></td>
+      </tr>
+        <tr>
+          <td class="text-right">Total: </td>
+          <td class="text-right" id='total2'></td>
+      </tr>
+  </tfoot>
+  </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>   
+</div> 
+
+<p></p>
+<div style="text-align: right;width:200px">
+  <button class="imprimir">Imprimir</button>
+  </div> 
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/1.0.3/numeral.min.js"
+integrity="sha512-sMgx0iqtQVrEwuUPBeRZE42fOPWIRBRb3CLaoK5gilEnzKTkdJpjguVk5HpcmOgjyZlHSGqXXugNlaovRhYLsg==" 
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</html>

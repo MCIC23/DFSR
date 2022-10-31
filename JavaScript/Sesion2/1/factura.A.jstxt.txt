@@ -1,0 +1,65 @@
+$(document).ready(
+    function(){
+        console.log("Carga");
+
+        $("#agregar").on('click', function(){
+            console.log("Funciona");
+            $("#partidas").append(
+
+        "<tr>\
+                <td>\
+                <input type='text' class='clave'/>\
+                </td>\
+                <td>\
+                <input type='text' class='precio'/>\
+                </td>\
+                <td>\
+                <input type='text' class='descripcion'/>\
+                </td>\
+                <td>\
+                <input type='text' class='unidades'/>\
+                </td>\
+                <td>\
+                <input type='text' class='importe' readonly='readonly'/>\
+                </td>\
+                </tr>");
+
+        $(".precio:last, .unidades:last").on('change', (function(){
+            console.log("Change")
+            let tr = $(this).closest("tr");
+            calculaImporte(tr);
+            calcularTotal();
+        }));
+     
+    });
+
+    function calculaImporte(tr){
+        let precio= $(tr).find(".precio").val();
+        let unidades= $(tr).find(".unidades").val();
+
+        console.log("El precio es : " + precio)
+        console.log("Las unidades son: " + unidades)
+
+        var importe = precio * unidades;
+        console.log("Importe : " + importe)
+
+        $(tr).find(".importe").val(importe);
+        
+    }
+
+    function calcularTotal(){
+        let subtotal = 0;
+
+        $(".importe").each(
+            function(){
+                subtotal += Number($(this).val());
+                console.log('subtotal: ', subtotal);
+            }
+        );
+        $("#subtotal").text(subtotal.toFixed(2));
+    }
+
+
+    }
+
+)
